@@ -1,8 +1,8 @@
 name: aws-inspec-demo
-title: InSpec Profile
-maintainer: The Authors
-copyright: The Authors
-copyright_email: you@example.com
-license: Apache-2.0
-summary: An InSpec Compliance Profile
-version: 0.1.0
+title: AWS Inspec Demo
+maintainer: aaronlippold
+copyright: aaronlippold
+copyright_email: alippold@mitre.org
+license: Apache 2 license
+summary: Test-suite for best-practice aws hardening for functionality Demo
+version: 0.1
