@@ -2,7 +2,7 @@ name: aws-inspec-demo
 title: AWS Inspec Demo
 maintainer: aaronlippold
 copyright: aaronlippold
-copyright_email: alippold@mitre.org
+copyright_email: lippold@gmail.com
 license: Apache 2 license
 summary: Test-suite for best-practice aws hardening for functionality Demo
 version: 0.1
