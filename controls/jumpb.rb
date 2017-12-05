@@ -9,10 +9,8 @@ control 'sg-1' do
   results = inspec.command("aws ec2 describe-security-groups --filters Name=ip-permission.from-port,Values=* Name=ip-permission.to-port,Values=22 Name=ip-permission.cidr,Values='0.0.0.0/0' --query 'SecurityGroups[*].{Name:GroupName}'").stdout.strip.chars.count
 
   describe results do
-    it { should  <= 2 }
+    it { should <= 2 }
   end
-
-
 end
 
 
@@ -23,13 +21,15 @@ control "s3bucket" do
   title "test s3 bucket thing"
   desc "what we want to test on s3 buckets"
 
-  tag "nist": "AC-7"
+  tag nist: "AC-7"
 
   buckets = inspec.command("aws s3api list-buckets --query 'Buckets[].Name' --output text").stdout.strip.lines
 
   buckets.each do |bucket|
     results = inspec.command("aws s3api get-bucket-acl --bucket #{bucket} --query Grants[?Grantee.Type==\'Group\'].[Grantee.URI,Permission] --output text | awk '{ print $1 }'").stdout.strip
      describe results do
-       its(content) { should_not include %r{AllUsers|AuthenticatedUsers} }
+       it { should_not include "AllUsers" }
+       it { should_not include "AuthenticatedUsers" }
      end
    end
+end
