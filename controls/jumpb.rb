@@ -18,8 +18,8 @@ end
 
 control "s3bucket" do
   impact 0.7
-  title "test s3 bucket thing"
-  desc "what we want to test on s3 buckets"
+  title "Ensure there are no Publicly Accessable S3 Buckets"
+  desc "Ensure that we don't get in the newspaper again ..."
 
   tag nist: "AC-7"
 
