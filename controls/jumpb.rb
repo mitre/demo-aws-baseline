@@ -42,14 +42,13 @@ control 's3bucket' do
   # perhaps this cli call is asking 'is the bucket publiclly accessable'
   # I think the cli call here would be 'has public set to yes'
 
-  buckets = list
+  # buckets = list
+  buckets = inspec.command('aws s3api list-buckets --query "Buckets[].Name" --output text').stdout.strip
 
   buckets.each do | bucket |
-
-
-  results = inspec.command('aws-cli s3bucket api query').stdout.strip
+  results = inspec.command("aws s3api get-bucket-acl --bucket #{bucket} --query Grants[?Grantee.Type==\'Group\'].[Grantee.URI,Permission] --output text | awk '{ print $1 }'").stdout.strip
 
    describe results do
-     its(content) { should_not cmp 'something' } # what text would be yes
+     its(content) { should_not include %r{AllUsers|AuthenticatedUsers} }
    end
  end
