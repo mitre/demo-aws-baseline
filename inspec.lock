@@ -1,7 +1,8 @@
 ---
 lockfile_version: 1
 depends:
-- name: aws
+- name: aws-resource-pack
   resolved_source:
-    path: "/Users/aaronl/hardening/cms-aws-demo/inspec-aws"
+    git: https://github.com/aaronlippold/inspec-aws.git
+    ref: 63969f2ac36dc485df40cc8ba5787acb68c9395c
   version_constraints: "[]"
