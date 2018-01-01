@@ -10,8 +10,6 @@ fixtures = {}
   )
 end
 
-puts aws_ec2_security_group("sg-f1888083").description.strip
-
 control "aws_security_group" do
   describe aws_ec2_security_group("sg-f1888083") do
     it { should exist }
