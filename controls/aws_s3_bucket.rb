@@ -11,7 +11,7 @@ end
 
 # research checking for 'http' proto from the world
 
-control "s3-buckets-public-access" do
+control "s3-buckets-no-public-access" do
   impact 0.7
   title "Ensure there are no publicly accessable S3 Buckets"
   desc "Ensure there are no publicly accessable S3 Buckets"
@@ -28,8 +28,7 @@ control "s3-buckets-public-access" do
               the bucket and remove the Public Access permission."
 
   describe aws_s3_buckets do
-    its('buckets') { should be_in ['logging_bucket'] }
-    #its('public_buckets') { should cmp [] }
     it { should_not have_public_buckets }
+    #its('buckets.public') { should cmp [] }    
   end
 end
