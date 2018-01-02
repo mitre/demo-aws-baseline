@@ -8,4 +8,5 @@ summary: Test-suite for best-practice aws hardening for functionality Demo
 version: 0.2
 depends:
   - name: aws-resource-pack
-    git: https://github.com/aaronlippold/inspec-aws.git
+    #git: https://github.com/aaronlippold/inspec-aws.git
+    path: ./../inspec-aws

@@ -20,7 +20,7 @@ control "aws_security_groups-best-practice" do
   tag "check": ""
   tag "fix": ""
 
-  all_groups = inspec.aws_ec2_security_groups
+  all_groups = aws_ec2_security_groups
 
   describe aws_ec2_security_groups do
     it { should exist }
@@ -42,7 +42,7 @@ control "cis_aws_foundations-4.1" do
   desc "Security groups provide stateful filtering of ingress/egress network
         traffic to AWS resources. It is recommended that no security group allows unrestricted
         ingress access to port 22."
-  tag "nist": ["AC-6","Rev_4"]
+  tag "nist": ["AC-17","Rev_4"]
   tag "severity": "high"
 
   tag "check": "
@@ -71,30 +71,76 @@ end
 
 control "cis_aws_foundations-4.2" do
   impact 0.7
-  title "Ensure VPC flow logging is enabled in all VPCs (Scored)"
-  desc "VPC Flow Logs is a feature that enables you to capture information about the
-        IP traffic going to and from network interfaces in your VPC.
-        After you've created a flow log, you can view and retrieve its data in
-        Amazon CloudWatch Logs. It is recommended that VPC Flow Logs be enabled
-        for packet 'Rejects' for VPCs."
-  tag "nist": ["AC-6","Rev_4"]
+  title "4.2 Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389 (Scored)"
+  desc "Security groups provide stateful filtering of ingress/egress network traffic
+        to AWS resources. It is recommended that no security group allows unrestricted
+        ingress access to port 3389."
+  tag "nist": ["AC-17","Rev_4"]
   tag "severity": "high"
-  tag "check": "Via the Management Console:
-      1. Sign into the management console
-      2. Select Services then VPC
-      3. In the left navigation pane, select Your VPCs
-      4. Select a VPC
-      5. In the right pane, select the Flow Logs tab.
-      6. Ensure a Log Flow exists that has Active in the Status column."
-  tag "fix": "Via the Management Console:
-      1. Sign into the management console
-      2. Select Services then VPC
-      3. In the left navigation pane, select Your VPCs
-      4. Select a VPC
-      5. In the right pane, select the Flow Logs tab.
-      6. If no Flow Log exists, click Create Flow Log
-      7. For Filter, select Reject
-      8. Enter in a Role and Destination Log Group"
+  tag "check": "Perform the following to determine if the account is configured as prescribed:
+      1. Login to the AWS Management Console at https://console.aws.amazon.com/vpc/home
+      2. In the left pane, click Security Groups
+      3. For each security group, perform the following:
+        1. Select the security group
+        2. Click the Inbound Rules tab
+        3. Ensure no rule exists that has a port range that includes port 3389
+           and has a Source of 0.0.0.0/0 "
+  tag "fix": ""
+
+  describe aws_ec2_security_group(fixtures['ec2_security_group_allow_all_group_id']) do
+    it { should_not be_open_on_port(3389) }
+  end
+end
+
+control "cis_aws_foundations-4.4" do
+  impact 0.7
+  title "Ensure the default security group of every VPC restricts all traffic (Scored) "
+  desc "A VPC comes with a default security group whose initial settings deny all
+        inbound traffic, allow all outbound traffic, and allow all traffic between
+        instances assigned to the security group. If you don't specify a security group
+        when you launch an instance, the instance is automatically assigned to this
+        default security group. Security groups provide stateful filtering of
+        ingress/egress network traffic to AWS resources. It is recommended that
+        the default security group restrict all traffic. The default VPC in every
+        region should have it's default security group updated to comply.  Any newly
+        created VPCs will automatically contain a default security group that will
+        need remediation to comply with this recommendation. "
+  tag "nist": ["CM-7","Rev_4"]
+  tag "severity": "high"
+  tag "check": "Perform the following to determine if the account is configured as prescribed:
+        Security Group State
+          1. Login to the AWS Management Console at https://console.aws.amazon.com/vpc/home
+          2. Repeat the next steps for all VPCs - including the default VPC in each AWS region:
+          3. In the left pane, click Security Groups
+          4. For each default security group, perform the following:
+            1. Select the default security group
+            2. Click the Inbound Rules tab
+            3. Ensure no rule exist
+            4. Click the Outbound Rules tab
+            5. Ensure no rules exist
+        Security Group Members
+          1. Login to the AWS Management Console at https://console.aws.amazon.com/vpc/home
+          2. Repeat the next steps for all default groups in all VPCs - including the default VPC in each AWS region:
+          3. In the left pane, click Security Groups
+          4. Copy the id of the default security group.
+          5. Change to the EC2 Management Console at https://console.aws.amazon.com/ec2/v2/home
+          6. In the filter column type 'Security Group ID : <security group id from #4>'"
+  tag "fix": "
+        Security Group Members
+          1. Identify AWS resources that exist within the default security group
+          2. Create a set of least privilege security groups for those resources
+          3. Place the resources in those security groups
+          4. Remove the resources noted in #1 from the default security group
+        Security Group State
+          1. Login to the AWS Management Console at https://console.aws.amazon.com/vpc/home
+          2. Repeat the next steps for all VPCs - including the default VPC in each AWS region:
+          3. In the left pane, click Security Groups
+          4. For each default security group, perform the following:
+            1. Select the default security group
+            2. Click the Inbound Rules tab
+            3. Remove any inbound rules
+            4. Click the Outbound Rules tab
+            5. Remove any inbound rules"
 
   describe aws_ec2_security_group(fixtures['ec2_security_group_allow_all_group_id']) do
     it { should_not be_open_on_port(3389) }
