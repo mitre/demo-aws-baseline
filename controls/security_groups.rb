@@ -10,12 +10,6 @@ fixtures = {}
   )
 end
 
-control "aws_security_group" do
-  describe aws_ec2_security_group("sg-f1888083") do
-    it { should exist }
-  end
-end
-
 control "aws_security_groups-1" do
   impact 0.7
   title "endure there are sg defined"
@@ -25,14 +19,10 @@ control "aws_security_groups-1" do
   tag "check": ""
   tag "fix": ""
 
-  puts all_groups = aws_ec2_security_groups
+  all_groups = inspec.aws_ec2_security_groups
 
-  # You should always have at least one security group
   describe aws_ec2_security_groups do
     it { should exist }
-  end
-
-  describe aws_ec2_security_groups do
     its('entries.count') { should be > 1 }
   end
 
@@ -40,16 +30,23 @@ control "aws_security_groups-1" do
   describe all_groups.where(vpc_id: fixtures['ec2_security_group_default_vpc_id']) do
     it { should exist }
   end
-  describe all_groups.where(vpc_id: 'vpc-12345678') do
-    it { should_not exist }
-  end
 
   # You should be able to find the security group named default
   describe all_groups.where(group_name: 'default') do
     it { should exist }
   end
+end
 
-  describe all_groups.where(group_name: 'no-such-security-group') do
-    it { should_not exist }
+# TODO add titles, tags etc.
+control "aws_ec2_security_group ingress_rules port 22 open" do
+  describe aws_ec2_security_group(fixtures['ec2_security_group_allow_all_group_id']) do
+    it { should_not be_open_on_port(22) }
+  end
+end
+
+# TODO add titles, tags etc.
+control "aws_ec2_security_group ingress_rules port 3389 open" do
+  describe aws_ec2_security_group(fixtures['ec2_security_group_allow_all_group_id']) do
+    it { should_not be_open_on_port(3389) }
   end
 end
