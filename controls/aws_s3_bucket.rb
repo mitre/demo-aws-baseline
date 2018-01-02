@@ -9,8 +9,6 @@
 #   )
 # end
 
-# research checking for 'http' proto from the world
-
 control "s3-buckets-no-public-access" do
   impact 0.7
   title "Ensure there are no publicly accessable S3 Buckets"
@@ -25,7 +23,7 @@ control "s3-buckets-no-public-access" do
 
   tag "fix": "Log into your AWS console and select the S3 buckets section. Select
               the buckets found in your review. Select the permisssions tab for
-              the bucket and remove the Public Access permission."
+              the bucket and remove the Public access permission."
 
   describe aws_s3_buckets do
     it { should_not have_public_buckets }
