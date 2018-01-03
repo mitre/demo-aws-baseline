@@ -21,7 +21,7 @@ control "s3-objects-no-public-access" do
      # returns a true or false
      it { should_not have_public_files }
      # returns a list of offenders if fails
-     # its('objects.public') { should cmp [] }
+     its('objects.public') { should cmp [] }
    end
   end
 end
