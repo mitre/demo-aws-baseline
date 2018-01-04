@@ -11,32 +11,6 @@ fixtures = {}
   )
 end
 
-# Are the following lines 15-38 needed anymore, since we have 4.4 down below?
-control "aws_security_groups-best-practice" do
-  impact 0.7
-  title "endure there are sg defined"
-  desc "ensure there are sg defined"
-  tag "nist": ["AC-6","Rev_4"]
-  tag "severity": "high"
-  tag "check": ""
-  tag "fix": ""
-
-  all_groups = aws_ec2_security_groups
-
-  describe aws_ec2_security_groups do
-    it { should exist }
-    its('entries.count') { should be > 1 }
-  end
-  # You should be able to find a security group in the default VPC
-  describe all_groups.where(vpc_id: fixtures['ec2_security_group_default_vpc_id']) do
-    it { should exist }
-  end
-  # You should be able to find the security group named default
-  describe all_groups.where(group_name: 'default') do
-    it { should exist }
-  end
-end
-
 control "cis_aws_foundations-4.1" do
   impact 0.7
   title "4.1 Ensure no security groups allow ingress from 0.0.0.0/0 to port 22"
@@ -143,7 +117,9 @@ control "cis_aws_foundations-4.4" do
             4. Click the Outbound Rules tab
             5. Remove any inbound rules"
 
-  describe aws_ec2_security_group(fixtures['ec2_security_group_allow_all_group_id']) do
-    it { should_not be_open_on_port(3389) }
+    # You should be able to find the security group named default
+    describe aws_ec2_security_group(group_id: fixtures['ec2_security_group_default_group_id']) do
+      it { should exist }
+      its('ingress_rules.count') { should eq 0 }
+    end
   end
-end
