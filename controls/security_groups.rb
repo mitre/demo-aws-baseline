@@ -39,7 +39,7 @@ end
 
 control "cis_aws_foundations-4.1" do
   impact 0.7
-  title "4.1 Ensure no security groups allow ingress from 0.0.0.0/0 to port 22 (Scored)"
+  title "4.1 Ensure no security groups allow ingress from 0.0.0.0/0 to port 22"
   desc "Security groups provide stateful filtering of ingress/egress network
         traffic to AWS resources. It is recommended that no security group allows unrestricted
         ingress access to port 22."
@@ -72,7 +72,7 @@ end
 
 control "cis_aws_foundations-4.2" do
   impact 0.7
-  title "4.2 Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389 (Scored)"
+  title "4.2 Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389"
   desc "Security groups provide stateful filtering of ingress/egress network traffic
         to AWS resources. It is recommended that no security group allows unrestricted
         ingress access to port 3389."
@@ -95,7 +95,7 @@ end
 
 control "cis_aws_foundations-4.4" do
   impact 0.7
-  title "Ensure the default security group of every VPC restricts all traffic (Scored) "
+  title "Ensure the default security group of every VPC restricts all traffic "
   desc "A VPC comes with a default security group whose initial settings deny all
         inbound traffic, allow all outbound traffic, and allow all traffic between
         instances assigned to the security group. If you don't specify a security group
