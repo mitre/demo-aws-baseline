@@ -60,7 +60,15 @@ control "cis_aws_foundations-4.2" do
         2. Click the Inbound Rules tab
         3. Ensure no rule exists that has a port range that includes port 3389
            and has a Source of 0.0.0.0/0 "
-  tag "fix": ""
+  tag "fix": "
+      1. Login to the AWS Management Console at https://console.aws.amazon.com/vpc/home
+      2. In the left pane, click Security Groups
+      3. For each security group, perform the following:
+        1. Select the security group
+        2. Click the Inbound Rules tab
+        3. Identify the rules to be removed
+        4. Click the x in the Remove column
+        5. Click Save "
 
   describe aws_ec2_security_group(fixtures['ec2_security_group_allow_all_group_id']) do
     it { should_not be_open_on_port(3389) }
