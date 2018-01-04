@@ -115,7 +115,7 @@ control "cis_aws_foundations-4.4" do
             2. Click the Inbound Rules tab
             3. Remove any inbound rules
             4. Click the Outbound Rules tab
-            5. Remove any inbound rules"
+            5. Remove any {outbound} rules"
 
     # You should be able to find the security group named default
     describe aws_ec2_security_group(group_id: fixtures['ec2_security_group_default_group_id']) do
