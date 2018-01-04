@@ -11,6 +11,7 @@ fixtures = {}
   )
 end
 
+# Are the following lines 15-38 needed anymore, since we have 4.4 down below?
 control "aws_security_groups-best-practice" do
   impact 0.7
   title "endure there are sg defined"
