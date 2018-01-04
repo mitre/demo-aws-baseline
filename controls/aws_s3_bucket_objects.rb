@@ -15,7 +15,7 @@ control "s3-objects-no-public-access" do
               select the permisssions tab for the object and remove
               the Public Access permission."
 
-  my_buckets = aws_s3_buckets.buckets
+  my_buckets = aws_s3_buckets.buckets.all
   my_buckets.each do |bucket|
    describe aws_s3_bucket(name: bucket) do
      # returns a true or false
