@@ -11,8 +11,8 @@
 
 control "s3-buckets-no-public-access" do
   impact 0.7
-  title "Ensure there are no publicly accessable S3 Buckets"
-  desc "Ensure there are no publicly accessable S3 Buckets"
+  title "Ensure there are no publicly accessible S3 buckets"
+  desc "Ensure there are no publicly accessible S3 buckets"
 
   tag "nist": ["AC-6", "Rev_4"]
   tag "severity": "high"
