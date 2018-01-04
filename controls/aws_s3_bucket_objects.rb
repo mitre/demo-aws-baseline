@@ -1,8 +1,8 @@
 
 control "s3-objects-no-public-access" do
   impact 0.7
-  title "Ensure there are no Publicly Accessable S3 objects"
-  desc "Ensure there are no Publicly Accessable S3 objects"
+  title "Ensure there are no publicly accessible S3 objects"
+  desc "Ensure there are no publicly accessible S3 objects"
   tag "nist": ["AC-6", "Rev_4"]
   tag "severity": "high"
 
