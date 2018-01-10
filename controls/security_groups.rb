@@ -132,8 +132,7 @@ control "cis_aws_foundations-4.4" do
       its('egress_rules.count') { should eq 0 }
     end
 
-    # You should be able to find the security group named default
-    describe aws_ec2_security_group(group_id: fixtures['ec2_security_group_default_group_id']) do
+    describe aws_ec2_security_group(group_id: fixtures['ec2_security_group_allow_all_group_id']) do
       it { should exist }
       its('ingress_rules') { should cmp [] }
       its('egress_rules')  { should cmp [] }
