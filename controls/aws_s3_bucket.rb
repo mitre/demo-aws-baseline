@@ -27,6 +27,9 @@ control "s3-buckets-no-public-access" do
 
   describe aws_s3_buckets do
     it { should_not have_public_buckets }
-    its('buckets.public') { should cmp [] }
+  end
+
+  describe aws_s3_buckets.where(availability: 'Public') do
+    its('bucket_names') { should eq [] }
   end
 end
