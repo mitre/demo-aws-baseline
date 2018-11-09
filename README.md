@@ -15,7 +15,7 @@ Tags indicate official releases of the project.
 
 Please note 0.x releases are works in progress (WIP) and may change at any time.   
 
-## data 
+## Data 
 
 https://s3.us-east-2.amazonaws.com/eafirstbucket/test2.jpg
 
