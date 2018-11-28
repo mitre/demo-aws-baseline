@@ -9,4 +9,4 @@ version: 0.2
 depends:
   - name: aws-resource-pack
     git: https://github.com/aaronlippold/inspec-aws.git
-    #path: ./../inspec-aws
+    # path: ./../inspec-aws
