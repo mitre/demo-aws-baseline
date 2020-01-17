@@ -5,7 +5,12 @@ copyright: aaronlippold
 copyright_email: lippold@gmail.com
 license: Apache 2 license
 summary: Test-suite for best-practice aws hardening for functionality Demo
-version: 0.2
+
+version: 0.3.0
+
+supports:
+  - platform: aws
+  
 depends:
   - name: aws-resource-pack
     git: https://github.com/aaronlippold/inspec-aws.git
