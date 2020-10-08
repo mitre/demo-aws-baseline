@@ -7,6 +7,7 @@ license: Apache 2 license
 summary: Test-suite for best-practice aws hardening for functionality Demo
 
 version: 0.3.0
+inspec_version: ">= 4.0"
 
 supports:
   - platform: aws
