@@ -1,12 +1,11 @@
-name: aws-inspec-demo
-title: AWS Inspec Demo
+name: demo-aws-baseline
+title: demo-aws-baseline
 maintainer: aaronlippold
 copyright: aaronlippold
 copyright_email: lippold@gmail.com
 license: Apache 2 license
-summary: Test-suite for best-practice aws hardening for functionality Demo
-
-version: 0.3.0
+summary: "Demo Inspec Validation Profile and Hardening Test-Suite for AWS Best Practices"
+version: 0.3.1
 inspec_version: ">= 4.0"
 
 supports:
